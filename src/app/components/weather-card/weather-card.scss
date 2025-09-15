@@ -1,0 +1,226 @@
+.weather-card {
+  background-color: #2c2e31;
+  border: 2px solid #3c3f41;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 280px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #646669;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.weather-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.day-label {
+  width: 100%;
+  margin-bottom: 0.25rem;
+  
+  .day-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #d1d0c5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.current-temp {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  
+  .temp-value {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #e2b714;
+    line-height: 1;
+  }
+  
+  .temp-unit {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #d1d0c5;
+    opacity: 0.8;
+  }
+}
+
+.weather-condition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  
+  .condition-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .weather-icon {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
+  }
+  
+  .condition-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.95rem;
+    color: #d1d0c5;
+    font-weight: 400;
+    text-transform: capitalize;
+  }
+}
+
+.temp-range {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+  
+  .temp-high,
+  .temp-low {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    
+    .temp-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.75rem;
+      color: #646669;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+    
+    .temp-value {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #d1d0c5;
+    }
+  }
+  
+  .temp-high .temp-value {
+    color: #ff6b6b;
+  }
+  
+  .temp-low .temp-value {
+    color: #74c0fc;
+  }
+  
+  .temp-divider {
+    width: 1px;
+    height: 2rem;
+    background-color: #3c3f41;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .weather-card {
+    max-width: 100%;
+    padding: 1.25rem;
+  }
+  
+  .day-label {
+    .day-text {
+      font-size: 0.85rem;
+    }
+  }
+  
+  .current-temp {
+    .temp-value {
+      font-size: 2.5rem;
+    }
+    
+    .temp-unit {
+      font-size: 1.25rem;
+    }
+  }
+  
+  .weather-condition {
+    .condition-icon {
+      width: 56px;
+      height: 56px;
+      
+      .weather-icon {
+        width: 56px;
+        height: 56px;
+      }
+    }
+    
+    .condition-text {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .temp-range {
+    gap: 0.75rem;
+    
+    .temp-high,
+    .temp-low {
+      .temp-label {
+        font-size: 0.7rem;
+      }
+      
+      .temp-value {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .weather-card {
+    padding: 1rem;
+  }
+  
+  .weather-card-content {
+    gap: 0.875rem;
+  }
+  
+  .day-label {
+    .day-text {
+      font-size: 0.8rem;
+    }
+  }
+  
+  .current-temp {
+    .temp-value {
+      font-size: 2.25rem;
+    }
+    
+    .temp-unit {
+      font-size: 1.1rem;
+    }
+  }
+  
+  .weather-condition {
+    .condition-icon {
+      width: 48px;
+      height: 48px;
+      
+      .weather-icon {
+        width: 48px;
+        height: 48px;
+      }
+    }
+  }
+}

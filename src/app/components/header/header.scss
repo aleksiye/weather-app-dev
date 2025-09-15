@@ -15,9 +15,9 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
+  max-width: 85%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 3rem 2rem;
   height: 60px;
 }
 
@@ -27,19 +27,41 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
   
   .logo-link {
     text-decoration: none;
-    color: #e2b714;
-    font-size: 1.5rem;
-    font-weight: 600;
-    transition: color 0.2s ease;
-    
-    &:hover {
-      color: #f4c430;
-    }
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: none;
+  }
+  
+  .logo-content {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  
+  .logo-top-text {
+    font-size: 0.65rem;
+    color: #646669;
+    font-family: 'Roboto Mono', monospace;
+    margin-bottom: -1.5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
   
   .logo-text {
     font-family: 'Roboto Mono', monospace;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    font-weight: 600;
+    color: #d1d0c5;
     letter-spacing: -0.5px;
+  }
+  
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    color: #f4c430;
+    flex-shrink: 0;
   }
 }
 
@@ -163,11 +185,29 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
       display: none;
     }
   }
+  
+  .logo-top-text {
+    font-size: 0.55rem;
+  }
+  
+  .logo-text {
+    font-size: 1.3rem;
+  }
+  
+  .logo-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media (max-width: 480px) {
   .logo-text {
     font-size: 1.2rem;
+  }
+  
+  .logo-icon {
+    width: 18px;
+    height: 18px;
   }
   
   .search-container {
