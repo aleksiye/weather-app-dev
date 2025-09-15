@@ -1,0 +1,181 @@
+Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\header.scss
+.header {
+  background-color: #2c2e31;
+  border-bottom: 1px solid #3c3f41;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 60px;
+}
+
+// Logo Section
+.logo-section {
+  flex: 0 0 auto;
+  
+  .logo-link {
+    text-decoration: none;
+    color: #e2b714;
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: #f4c430;
+    }
+  }
+  
+  .logo-text {
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: -0.5px;
+  }
+}
+
+// Search Section
+.search-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 2rem;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 3rem 0.75rem 1rem;
+    background-color: #323437;
+    border: 2px solid #3c3f41;
+    border-radius: 8px;
+    color: #d1d0c5;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    
+    &::placeholder {
+      color: #646669;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #e2b714;
+      background-color: #2c2e31;
+      box-shadow: 0 0 0 3px rgba(226, 183, 20, 0.1);
+    }
+    
+    &:hover {
+      border-color: #646669;
+    }
+  }
+  
+  .search-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #646669;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: #e2b714;
+    }
+    
+    .search-icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Login Section
+.login-section {
+  flex: 0 0 auto;
+  
+  .login-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #323437;
+    border: 2px solid #3c3f41;
+    border-radius: 8px;
+    color: #d1d0c5;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    .user-icon {
+      width: 18px;
+      height: 18px;
+    }
+    
+    &:hover {
+      background-color: #e2b714;
+      border-color: #e2b714;
+      color: #2c2e31;
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(226, 183, 20, 0.3);
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 1rem;
+  }
+  
+  .search-section {
+    margin: 0 1rem;
+  }
+  
+  .search-container {
+    max-width: 300px;
+  }
+  
+  .login-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    
+    span:not(.user-icon) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.2rem;
+  }
+  
+  .search-container {
+    max-width: 200px;
+  }
+  
+  .search-input {
+    font-size: 0.85rem;
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  }
+}
