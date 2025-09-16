@@ -15,17 +15,15 @@ Chart.register(...registerables);
 export class LineChart {
   forecastDay = input<ForecastDayComplete | undefined>();
 
-  // Create computed chart data based on forecast
   lineChartData = computed<ChartConfiguration<'line'>['data']>(() => {
     const day = this.forecastDay();
-    
+    console.log('Forecast Day in LineChart:', day);
     if (day?.hour) {
-      // Extract hourly data every 3 hours (0, 3, 6, 9, 12, 15, 18, 21)
-      const hourlyData = day.hour.filter((_, index) => index % 3 === 0);
-      
+      const hourlyData = day.hour;
+      console.log('Hourly Data:', hourlyData);
       const hourlyLabels = hourlyData.map(hour => {
-        const time = hour.time.split(' ')[1]; // Get time part
-        return time.substring(0, 5); // Format as HH:MM
+        const time = hour.time.split(' ')[1];
+        return time.substring(0, 5);
       });
       
       const hourlyTemps = hourlyData.map(hour => hour.temp_c);
@@ -54,7 +52,7 @@ export class LineChart {
       };
     }
 
-    // Fallback data if no forecast available
+    // Fallback data
     return {
       labels: ['00:00', '06:00', '12:00', '18:00'],
       datasets: [
@@ -110,7 +108,6 @@ export class LineChart {
       x: {
         grid: {
           color: '#3c3f41',
-          //drawBorder: false
         },
         ticks: {
           color: '#646669',
@@ -119,7 +116,6 @@ export class LineChart {
             size: 12
           },
           callback: function(value, index) {
-            // Only show every other label (00:00, 06:00, 12:00, 18:00)
             const labels = this.getLabelForValue(value as number);
             return index % 2 === 0 ? labels : '';
           }
@@ -129,7 +125,6 @@ export class LineChart {
         position: 'right',
         grid: {
           color: '#3c3f41',
-          //drawBorder: false
         },
         ticks: {
           color: '#646669',

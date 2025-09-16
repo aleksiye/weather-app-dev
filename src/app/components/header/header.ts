@@ -14,13 +14,13 @@ export class Header {
 
   onSearch(): void {
     if (this.searchQuery.trim()) {
-      // TODO: Implement search functionality
+      //TODO: Implement search functionality
       console.log('Searching for:', this.searchQuery);
     }
   }
 
   onLogin(): void {
-    // TODO: Implement login functionality
+    //TODO: Implement login functionality
     console.log('Login clicked');
   }
 }

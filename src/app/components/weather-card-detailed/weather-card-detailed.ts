@@ -10,9 +10,11 @@ import { WeatherResponse } from '../../interfaces/WeatherResponse.interface';
   styleUrl: './weather-card-detailed.scss'
 })
 export class WeatherCardDetailed {
+
   weatherData = input<WeatherResponse | null>();
   forecast = computed(() => {
     const data = this.weatherData();
+    console.log('Weather Data in WeatherCardDetailed:', data);
     return data?.forecast?.forecastday?.[0];
   });
   

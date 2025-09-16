@@ -14,7 +14,8 @@ import { Footer } from '../components/footer/footer';
 })
 export class Home implements OnInit{
   weatherData: WeatherResponse | null = null;
-  constructor(private forecastService: Forecast) {}
+  constructor(private forecastService: Forecast) {
+  }
   ngOnInit() {
     this.loadWeatherData('Belgrade');
   }
@@ -22,8 +23,10 @@ export class Home implements OnInit{
   loadWeatherData(location: string) {
     this.forecastService.getForecast(location).subscribe({
       next: (data: WeatherResponse) => {
-        this.weatherData = data;
-        console.log('Weather data received:', data);
+        setTimeout(() => {
+          this.weatherData = data;
+          console.log('Weather data received:', data);
+        }, 0);
       },
       error: (error: Error) => {
         console.error('Error fetching weather data:', error);

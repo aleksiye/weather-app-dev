@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './footer.scss'
 })
 export class Footer {
-  // Component logic can be added here later
+ 
 }
