@@ -1,1 +1,48 @@
-<p>weather-card-detailed works!</p>
+<div class="weather-card-detailed">
+  <div class="weather-header">
+    <div class="location-info">
+      <h2 class="location-name">{{ location()?.name || 'Loading...' }}</h2>
+      <p class="location-region">{{ location()?.region }}, {{ location()?.country }}</p>
+    </div>
+    <div class="current-weather">
+      <div class="current-temp">{{ currentWeather()?.temp_c }}°C</div>
+      <div class="weather-condition">
+        <img [src]="currentWeather()?.condition?.icon" alt="Weather condition" class="condition-icon">
+        <span class="condition-text">{{ currentWeather()?.condition?.text }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="chart-and-stats-container">
+    <div class="chart-container">
+      <app-line-chart [forecastDay]="forecast()"></app-line-chart>
+    </div>
+    
+    <div class="weather-stats">
+      <div class="stat-item">
+        <span class="stat-label">Feels like</span>
+        <span class="stat-value">{{ currentWeather()?.feelslike_c }}°C</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Humidity</span>
+        <span class="stat-value">{{ currentWeather()?.humidity }}%</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Wind</span>
+        <span class="stat-value">{{ currentWeather()?.wind_kph }} km/h</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">UV Index</span>
+        <span class="stat-value">{{ currentWeather()?.uv }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Pressure</span>
+        <span class="stat-value">{{ currentWeather()?.pressure_mb }} mb</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Visibility</span>
+        <span class="stat-value">{{ currentWeather()?.vis_km }} km</span>
+      </div>
+    </div>
+  </div>
+</div>

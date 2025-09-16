@@ -13,14 +13,14 @@ body {
 }
 
 main {
-  margin-top: 60px; // Account for fixed header height
+  margin-top: 60px;
   min-height: calc(100vh - 60px);
   padding: 2rem;
   background-color: #323437;
   font-family: 'Roboto Mono', monospace;
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
   font-family: 'Roboto Mono', monospace;
 }

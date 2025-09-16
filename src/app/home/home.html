@@ -1,7 +1,7 @@
-<div class="home-container">
+<div class="home-container" >
   <!-- Detailed Weather Card Section -->
   <section class="detailed-weather-section">
-    <app-weather-card-detailed></app-weather-card-detailed>
+    <app-weather-card-detailed [weatherData]="weatherData"></app-weather-card-detailed>
   </section>
   
   <!-- Weather Cards Grid Section -->
@@ -12,4 +12,5 @@
       <app-weather-card></app-weather-card>
     </div>
   </section>
+  <app-footer></app-footer>
 </div>
