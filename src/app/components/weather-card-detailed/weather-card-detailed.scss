@@ -4,6 +4,9 @@
   border-radius: 12px;
   padding: 2rem;
   width: 100%;
+  max-width: 1632px;
+  margin: 0 auto;
+  box-sizing: border-box;
   transition: all 0.2s ease;
   
   &:hover {
@@ -40,11 +43,26 @@
     align-items: center;
     gap: 1.5rem;
     
-    .current-temp {
-      font-family: 'Roboto Mono', monospace;
-      font-size: 3rem;
-      font-weight: 600;
-      color: #e2b714;
+    .temp-time-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      
+      .current-temp {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 3rem;
+        font-weight: 600;
+        color: #e2b714;
+        line-height: 1;
+      }
+      
+      .current-time {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 3rem;
+        font-weight: 600;
+        color: #646669;
+        line-height: 1;
+      }
     }
     
     .weather-condition {
@@ -69,6 +87,7 @@
     }
   }
 }
+
 
 .chart-and-stats-container {
   display: flex;
@@ -171,8 +190,13 @@
     .current-weather {
       align-self: center;
       
-      .current-temp {
-        font-size: 2.5rem;
+      .temp-time-wrapper{
+        .current-temp {
+          font-size: 2.5rem;
+        }
+        .current-time {
+          font-size: 2.5rem;
+        }
       }
       
       .weather-condition {
@@ -222,10 +246,14 @@
     .current-weather {
       gap: 1rem;
       
-      .current-temp {
-        font-size: 2rem;
+      .temp-time-wrapper {
+        .current-time {
+          font-size: 2rem;
+        }
+        .current-temp {
+         font-size: 2rem;
+        }
       }
-      
       .weather-condition {
         .condition-icon {
           width: 48px;

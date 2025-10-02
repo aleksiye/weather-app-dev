@@ -20,15 +20,22 @@ export class LineChart {
     const day = this.forecastDay();
     
     if (day?.hour) {
-      // Extract hourly data every 3 hours (0, 3, 6, 9, 12, 15, 18, 21)
-      const hourlyData = day.hour.filter((_, index) => index % 3 === 0);
-      
-      const hourlyLabels = hourlyData.map(hour => {
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentHourIndex = day.hour.findIndex(hour => {
+        const hourTime = new Date(hour.time);
+        return hourTime.getHours() === currentHour;
+      });
+      const hoursFromToday = day.hour.slice(currentHourIndex);
+      const hoursNeeded = 24 - hoursFromToday.length;
+      const hoursFromTomorrow = day.hour.slice(0, hoursNeeded);
+      const combinedHours = [...hoursFromToday, ...hoursFromTomorrow];
+      const hourlyLabels = combinedHours.map(hour => {
         const time = hour.time.split(' ')[1]; // Get time part
         return time.substring(0, 5); // Format as HH:MM
       });
-      
-      const hourlyTemps = hourlyData.map(hour => hour.temp_c);
+
+      const hourlyTemps = combinedHours.map(hour => hour.temp_c);
 
       return {
         labels: hourlyLabels,
@@ -119,9 +126,9 @@ export class LineChart {
             size: 12
           },
           callback: function(value, index) {
-            // Only show every other label (00:00, 06:00, 12:00, 18:00)
+            // Show every 3rd label to avoid overcrowding (00:00, 03:00, 06:00, etc.)
             const labels = this.getLabelForValue(value as number);
-            return index % 2 === 0 ? labels : '';
+            return index % 3 === 0 ? labels : '';
           }
         }
       },

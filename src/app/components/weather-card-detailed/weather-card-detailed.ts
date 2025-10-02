@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LineChart } from '../line-chart/line-chart';
 import { WeatherResponse } from '../../interfaces/WeatherResponse.interface';
@@ -18,4 +18,10 @@ export class WeatherCardDetailed {
   
   currentWeather = computed(() => this.weatherData()?.current);
   location = computed(() => this.weatherData()?.location);
+
+  currentTime = computed(() => {
+    const localtime = this.location()?.localtime;
+    if (!localtime) return '';
+    return localtime.split(' ')[1];
+  })
 }

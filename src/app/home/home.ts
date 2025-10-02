@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherCard } from '../components/weather-card/weather-card';
 import { WeatherCardDetailed } from '../components/weather-card-detailed/weather-card-detailed';
@@ -13,7 +13,7 @@ import { Footer } from '../components/footer/footer';
   styleUrl: './home.scss'
 })
 export class Home implements OnInit{
-  weatherData: WeatherResponse | null = null;
+  weatherData = signal<WeatherResponse | null>(null);
   constructor(private forecastService: Forecast) {}
   ngOnInit() {
     this.loadWeatherData('Belgrade');
@@ -22,7 +22,7 @@ export class Home implements OnInit{
   loadWeatherData(location: string) {
     this.forecastService.getForecast(location).subscribe({
       next: (data: WeatherResponse) => {
-        this.weatherData = data;
+        this.weatherData.set(data);
         console.log('Weather data received:', data);
       },
       error: (error: Error) => {
