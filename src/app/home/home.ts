@@ -1,14 +1,14 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WeatherCard } from '../components/weather-card/weather-card';
-import { WeatherCardDetailed } from '../components/weather-card-detailed/weather-card-detailed';
+//import { WeatherCard } from '../components/weather-card/weather-card';
 import { Forecast } from '../services/forecast';
 import { WeatherResponse } from '../interfaces/WeatherResponse.interface';
 import { Footer } from '../components/footer/footer';
+import { WeatherDashboard } from '../components/weather-dashboard/weather-dashboard';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, WeatherCard, WeatherCardDetailed, Footer],
+  imports: [CommonModule, WeatherDashboard, Footer],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })

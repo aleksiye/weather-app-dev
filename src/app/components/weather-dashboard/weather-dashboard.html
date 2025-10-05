@@ -17,8 +17,15 @@
   </div>
   
   <div class="chart-and-stats-container">
-    <div class="chart-container">
-      <app-line-chart [forecastDay]="forecast()"></app-line-chart>
+    <div class="chart-section">
+      <div class="chart-container">
+        <app-line-chart [forecastDay]="forecast()"></app-line-chart>
+      </div>
+      <app-day-selector 
+        [forecastDays]="allForecastDays()"
+        [selectedIndex]="selectedDayIndex()"
+        (daySelected)="onDaySelected($event)">
+      </app-day-selector>
     </div>
     
     <div class="weather-stats">
@@ -48,9 +55,4 @@
       </div>
     </div>
   </div>
-  <app-day-selector 
-    [forecastDays]="allForecastDays()"
-    [selectedIndex]="selectedDayIndex()"
-    (daySelected)="onDaySelected($event)">
-  </app-day-selector>
 </div>

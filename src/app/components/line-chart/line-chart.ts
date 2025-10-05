@@ -35,7 +35,7 @@ export class LineChart {
         return time.substring(0, 5); // Format as HH:MM
       });
 
-      const hourlyTemps = combinedHours.map(hour => hour.temp_c);
+      const hourlyTemps = combinedHours.map(hour => Number(hour.temp_c.toFixed(1)));
 
       return {
         labels: hourlyLabels,
@@ -128,7 +128,7 @@ export class LineChart {
           callback: function(value, index) {
             // Show every 3rd label to avoid overcrowding (00:00, 03:00, 06:00, etc.)
             const labels = this.getLabelForValue(value as number);
-            return index % 3 === 0 ? labels : '';
+            return index % 2 === 0 ? labels : '';
           }
         }
       },
@@ -144,7 +144,7 @@ export class LineChart {
             family: 'Roboto Mono',
             size: 12
           },
-          callback: (value) => `${value}°C`
+          callback: (value) => `${(value as number).toFixed(1)}°C`
         }
       }
     },

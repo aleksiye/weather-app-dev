@@ -1,0 +1,19 @@
+<div class="day-selector-container">
+  @for (day of forecastDays(); track day.date) {
+    <button 
+      class="day-card"
+      [class.active]="selectedIndex() === $index"
+      (click)="selectDay($index)"
+      type="button">
+      <div class="day-name">{{ getDayName($index, day.date) }}</div>
+      <div class="day-icon">
+        <img [src]="day.day.condition.icon" [alt]="day.day.condition.text">
+      </div>
+      <div class="day-temps">
+        <span class="temp-max">{{ day.day.maxtemp_c }}°</span>
+        <span class="temp-min">{{ day.day.mintemp_c }}°</span>
+      </div>
+      <div class="day-condition">{{ day.day.condition.text }}</div>
+    </button>
+  }
+</div>

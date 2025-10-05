@@ -1,22 +1,22 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LineChart } from '../line-chart/line-chart';
 import { WeatherResponse } from '../../interfaces/WeatherResponse.interface';
 import { DaySelector } from '../day-selector/day-selector';
 
 @Component({
-  selector: 'app-weather-card-detailed',
+  selector: 'app-weather-dashboard',
   imports: [CommonModule, LineChart, DaySelector],
-  templateUrl: './weather-card-detailed.html',
-  styleUrl: './weather-card-detailed.scss'
+  templateUrl: './weather-dashboard.html',
+  styleUrl: './weather-dashboard.scss'
 })
-export class WeatherCardDetailed {
+export class WeatherDashboard {
   weatherData = input<WeatherResponse | null>();
   selectedDayIndex = signal<number>(0);
   forecast = computed(() => {
     const data = this.weatherData();
     const index = this.selectedDayIndex();
-    return data?.forecast?.forecastday?.[0];
+    return data?.forecast?.forecastday?.[index] || data?.forecast?.forecastday?.[0];
   });
   
   allForecastDays = computed(() => {
@@ -33,5 +33,6 @@ export class WeatherCardDetailed {
   });
   onDaySelected(index: number) {
     this.selectedDayIndex.set(index);
+    console.log(this.selectedDayIndex());
   }
 }
