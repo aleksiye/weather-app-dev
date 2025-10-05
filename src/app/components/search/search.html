@@ -1,1 +1,37 @@
-<p>search works!</p>
+<div class="search-container">
+  <input 
+    type="text" 
+    class="search-input"
+    [value]="searchQuery()"
+    (input)="onQueryChange($any($event.target).value)"
+    (keydown)="onKeyPress($event)"
+    (blur)="onBlur()"
+    placeholder="Search location..."
+    aria-label="Search for a location"
+    autocomplete="off">
+  
+  <button 
+    class="search-button" 
+    (click)="onSearch()"
+    type="button"
+    aria-label="Search">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+  </button>
+
+  @if (showSuggestions() && suggestions().length > 0) {
+    <div class="suggestions-dropdown">
+      @for (suggestion of suggestions(); track suggestion.id) {
+        <button
+          class="suggestion-item"
+          [class.selected]="selectedIndex() === $index"
+          (click)="selectSuggestion(suggestion)"
+          type="button">
+          <div class="suggestion-name">{{ suggestion.name }}</div>
+          <div class="suggestion-details">{{ suggestion.region }}, {{ suggestion.country }}</div>
+        </button>
+      }
+    </div>
+  }
+</div>

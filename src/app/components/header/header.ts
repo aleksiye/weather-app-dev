@@ -1,22 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { Search } from '../search/search';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, Search],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
 export class Header {
-  searchQuery: string = '';
-
-  onSearch(): void {
-    if (this.searchQuery.trim()) {
-      // TODO: Implement search functionality
-      console.log('Searching for:', this.searchQuery);
-    }
+  searchSubmitted = output<string>();
+  onSearchSubmitted(query: string): void {
+    this.searchSubmitted.emit(query);
   }
 
   onLogin(): void {

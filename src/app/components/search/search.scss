@@ -1,0 +1,160 @@
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 3rem 0.75rem 1rem;
+    background-color: #323437;
+    border: 2px solid #3c3f41;
+    border-radius: 8px;
+    color: #d1d0c5;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    
+    &::placeholder {
+      color: #646669;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #e2b714;
+      background-color: #2c2e31;
+      box-shadow: 0 0 0 3px rgba(226, 183, 20, 0.1);
+    }
+    
+    &:hover {
+      border-color: #646669;
+    }
+  }
+  
+  .search-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #646669;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      color: #e2b714;
+    }
+    
+    &:focus {
+      outline: none;
+      color: #e2b714;
+    }
+    
+    .search-icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .suggestions-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    background-color: #2c2e31;
+    border: 2px solid #3c3f41;
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+    .suggestion-item {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: none;
+      border: none;
+      border-bottom: 1px solid #3c3f41;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover,
+      &.selected {
+        background-color: rgba(226, 183, 20, 0.1);
+      }
+
+      .suggestion-name {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #d1d0c5;
+      }
+
+      .suggestion-details {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.8rem;
+        color: #646669;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    max-width: 300px;
+
+    .suggestions-dropdown {
+      max-height: 200px;
+
+      .suggestion-item {
+        padding: 0.6rem 0.75rem;
+
+        .suggestion-name {
+          font-size: 0.85rem;
+        }
+
+        .suggestion-details {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .search-container {
+    max-width: 200px;
+  }
+  
+  .search-input {
+    font-size: 0.85rem;
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  }
+
+  .suggestions-dropdown {
+    .suggestion-item {
+      padding: 0.5rem;
+
+      .suggestion-name {
+        font-size: 0.8rem;
+      }
+
+      .suggestion-details {
+        font-size: 0.7rem;
+      }
+    }
+  }
+}

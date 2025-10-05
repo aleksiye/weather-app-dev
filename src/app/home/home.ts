@@ -1,21 +1,53 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//import { WeatherCard } from '../components/weather-card/weather-card';
+import { WeatherDashboard } from '../components/weather-dashboard/weather-dashboard';
+import { Header } from '../components/header/header';
+import { Footer } from '../components/footer/footer';
 import { Forecast } from '../services/forecast';
 import { WeatherResponse } from '../interfaces/WeatherResponse.interface';
-import { Footer } from '../components/footer/footer';
-import { WeatherDashboard } from '../components/weather-dashboard/weather-dashboard';
+
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, WeatherDashboard, Footer],
+  imports: [CommonModule, WeatherDashboard, Header, Footer],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
 export class Home implements OnInit{
   weatherData = signal<WeatherResponse | null>(null);
+  isLoadingLocation = signal<boolean>(true);
   constructor(private forecastService: Forecast) {}
   ngOnInit() {
+    this.getUserLocationAndLoadWeather();
+  }
+  getUserLocationAndLoadWeather(): void {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const location = `${lat},${lon}`;
+          console.log('User location obtained:', location);
+          this.loadWeatherData(location);
+        },
+        (error) => {
+          console.warn('Geolocation error:', error.message);
+          this.loadDefaultLocation();
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        }
+      );
+    } else {
+      console.warn('Geolocation not supported by browser');
+      this.loadDefaultLocation();
+    }
+  }
+
+  loadDefaultLocation(): void {
+    console.log('Loading default location: Belgrade');
     this.loadWeatherData('Belgrade');
   }
 
@@ -29,5 +61,8 @@ export class Home implements OnInit{
         console.error('Error fetching weather data:', error);
       }
   });
+  }
+  onSearchSubmitted(query: string): void {
+    this.loadWeatherData(query);
   }
 }

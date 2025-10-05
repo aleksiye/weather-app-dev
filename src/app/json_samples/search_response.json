@@ -1,0 +1,47 @@
+[
+    {
+        "id": 386789,
+        "name": "Beijing",
+        "region": "Beijing",
+        "country": "China",
+        "lat": 39.93,
+        "lon": 116.39,
+        "url": "beijing-beijing-china"
+    },
+    {
+        "id": 265843,
+        "name": "Belo Horizonte",
+        "region": "Minas Gerais",
+        "country": "Brazil",
+        "lat": -19.92,
+        "lon": -43.93,
+        "url": "belo-horizonte-minas-gerais-brazil"
+    },
+    {
+        "id": 1418683,
+        "name": "Beirut",
+        "region": "Beyrouth",
+        "country": "Lebanon",
+        "lat": 33.87,
+        "lon": 35.51,
+        "url": "beirut-beyrouth-lebanon"
+    },
+    {
+        "id": 3088110,
+        "name": "Bekasi",
+        "region": "West Java",
+        "country": "Indonesia",
+        "lat": -6.23,
+        "lon": 106.99,
+        "url": "bekasi-west-java-indonesia"
+    },
+    {
+        "id": 2830682,
+        "name": "Belgrade",
+        "region": "Central Serbia",
+        "country": "Serbia",
+        "lat": 44.8,
+        "lon": 20.47,
+        "url": "belgrade-central-serbia-serbia"
+    }
+]

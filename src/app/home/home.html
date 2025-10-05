@@ -1,17 +1,10 @@
+<app-header (searchSubmitted)="onSearchSubmitted($event)"></app-header>
+
 <div class="home-container" >
   <!-- Detailed Weather Card Section -->
   <section class="detailed-weather-section">
     <app-weather-dashboard [weatherData]="weatherData()"></app-weather-dashboard>
   </section>
   
-  <!-- Weather Cards Grid Section 
-  <section class="weather-cards-section">
-    <div class="weather-cards-grid">
-      <app-weather-card></app-weather-card>
-      <app-weather-card></app-weather-card>
-      <app-weather-card></app-weather-card>
-    </div>
-  </section>
-  -->
   <app-footer></app-footer>
 </div>
