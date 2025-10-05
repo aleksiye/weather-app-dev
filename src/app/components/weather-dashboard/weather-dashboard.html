@@ -18,8 +18,18 @@
   
   <div class="chart-and-stats-container">
     <div class="chart-section">
-      <div class="chart-container">
-        <app-line-chart [forecastDay]="forecast()"></app-line-chart>
+      <div class="chart-row">
+        <div class="chart-container">
+          <app-line-chart 
+            [forecastDays]="allForecastDays()" 
+            [selectedDayIndex]="selectedDayIndex()"
+            [chartType]="selectedChartType()">
+          </app-line-chart>
+        </div>
+        <app-chart-selector
+          [selectedType]="selectedChartType()"
+          (chartTypeChanged)="onChartSelected($event)">
+        </app-chart-selector>
       </div>
       <app-day-selector 
         [forecastDays]="allForecastDays()"

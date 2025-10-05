@@ -1,0 +1,12 @@
+<div class="chart-selector">
+  @for (config of chartConfigs; track config.type) {
+    <button 
+      class="chart-btn"
+      [class.active]="selectedType() === config.type"
+      (click)="selectChart(config.type)"
+      type="button">
+      <span class="chart-icon">{{ config.icon }}</span>
+      <span class="chart-label">{{ config.label }}</span>
+    </button>
+  }
+</div>

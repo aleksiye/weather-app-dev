@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { ForecastDayComplete } from '../../interfaces/ForecastDayComplete.interface';
+import { ChartType } from '../../models/chart.type';
 Chart.register(...registerables);
 
 @Component({
@@ -13,40 +14,51 @@ Chart.register(...registerables);
   styleUrl: './line-chart.scss'
 })
 export class LineChart {
-  forecastDay = input<ForecastDayComplete | undefined>();
+  forecastDays = input<ForecastDayComplete[]>([]);
+  selectedDayIndex = input<number>(0);
+  chartType = input<ChartType>(ChartType.TEMPERATURE);
 
-  // Create computed chart data based on forecast
   lineChartData = computed<ChartConfiguration<'line'>['data']>(() => {
-    const day = this.forecastDay();
-    
-    if (day?.hour) {
+    const days = this.forecastDays();
+    const dayIndex = this.selectedDayIndex();
+    let combinedHours: typeof days[0]['hour'] = [];
+    if (dayIndex === 0 && days) {
       const now = new Date();
       const currentHour = now.getHours();
-      const currentHourIndex = day.hour.findIndex(hour => {
+      const today = days[0];
+      const tomorrow = days[1];
+      const todayHours = today.hour;
+      const currentHourIndex = todayHours.findIndex(hour => {
         const hourTime = new Date(hour.time);
-        return hourTime.getHours() === currentHour;
+        return hourTime.getHours() >= currentHour;
       });
-      const hoursFromToday = day.hour.slice(currentHourIndex);
-      const hoursNeeded = 24 - hoursFromToday.length;
-      const hoursFromTomorrow = day.hour.slice(0, hoursNeeded);
-      const combinedHours = [...hoursFromToday, ...hoursFromTomorrow];
-      const hourlyLabels = combinedHours.map(hour => {
-        const time = hour.time.split(' ')[1]; // Get time part
-        return time.substring(0, 5); // Format as HH:MM
-      });
-
-      const hourlyTemps = combinedHours.map(hour => Number(hour.temp_c.toFixed(1)));
-
+      const remainingToday = todayHours.slice(currentHourIndex);
+      const hoursNeeded = 24 - remainingToday.length;
+      let tomorrowHours: typeof todayHours = [];
+      tomorrowHours = tomorrow.hour.slice(0, hoursNeeded);
+      combinedHours = [...remainingToday, ...tomorrowHours];
+    }
+    else if (dayIndex > 0 && days) {
+      if(days[dayIndex]?.hour) {
+        combinedHours = days[dayIndex].hour;
+      }
+    }
+    const temps = combinedHours.map(hour => hour.temp_c);
+    const timeLabels = combinedHours.map(hour => {
+      const timePart = hour.time.split(' ')[1];
+      return timePart.substring(0, 5);
+    });
+    if (combinedHours.length > 0) {
       return {
-        labels: hourlyLabels,
+        labels: timeLabels,
         datasets: [
           {
-            data: hourlyTemps,
+            data: temps,
             label: 'Temperature',
             borderColor: '#e2b714',
             backgroundColor: 'rgba(226, 183, 20, 0.1)',
             borderWidth: 3,
-            pointBackgroundColor: '#e2b714',
+            pointBackgroundColor: '#fad13dff',
             pointBorderColor: '#2c2e31',
             pointBorderWidth: 2,
             pointRadius: 4,
@@ -60,6 +72,8 @@ export class LineChart {
         ]
       };
     }
+      
+    
 
     // Fallback data if no forecast available
     return {

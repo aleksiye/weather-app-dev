@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WeatherCard } from './weather-card';
+import { ChartSelector } from './chart-selector';
 
-describe('WeatherCard', () => {
-  let component: WeatherCard;
-  let fixture: ComponentFixture<WeatherCard>;
+describe('ChartSelector', () => {
+  let component: ChartSelector;
+  let fixture: ComponentFixture<ChartSelector>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WeatherCard]
+      imports: [ChartSelector]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WeatherCard);
+    fixture = TestBed.createComponent(ChartSelector);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

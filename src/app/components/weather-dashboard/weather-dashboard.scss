@@ -101,9 +101,16 @@
   gap: 1rem;
 }
 
+.chart-row {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+}
+
 .chart-container {
   height: 300px;
   min-width: 0;
+  flex: 1;
   
   app-line-chart {
     display: block;
@@ -223,6 +230,10 @@
   
   .chart-container {
     height: 250px;
+  }
+
+  .chart-row {
+    flex-direction: column-reverse;
   }
   
   .weather-stats {

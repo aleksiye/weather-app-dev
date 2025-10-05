@@ -1,0 +1,96 @@
+.chart-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  justify-content: center;
+  
+  .chart-btn {
+    background-color: #323437;
+    border: 2px solid #3c3f41;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 80px;
+    
+    &:hover {
+      border-color: #646669;
+      transform: translateX(-2px);
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    &.active {
+      border-color: #e2b714;
+      background-color: rgba(226, 183, 20, 0.1);
+      
+      .chart-label {
+        color: #e2b714;
+      }
+    }
+    
+    .chart-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    
+    .chart-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #d1d0c5;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      line-height: 1;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .chart-selector {
+    .chart-btn {
+      min-width: 70px;
+      padding: 0.6rem 0.75rem;
+      
+      .chart-icon {
+        font-size: 1.25rem;
+      }
+      
+      .chart-label {
+        font-size: 0.65rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-selector {
+    flex-direction: row;
+    justify-content: center;
+    
+    .chart-btn {
+      flex: 1;
+      max-width: 120px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-selector {
+    .chart-btn {
+      min-width: 65px;
+      padding: 0.5rem 0.5rem;
+      
+      .chart-icon {
+        font-size: 1.1rem;
+      }
+      
+      .chart-label {
+        font-size: 0.6rem;
+      }
+    }
+  }
+}
