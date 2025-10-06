@@ -26,6 +26,10 @@ export class WeatherDashboard {
     const data = this.weatherData();
     return data?.forecast?.forecastday || [];
   })
+  locationLocalTime = computed(() => {
+    const location = this.location();
+    return location?.localtime ? new Date(location.localtime) : new Date();
+  });
   currentWeather = computed(() => this.weatherData()?.current);
   location = computed(() => this.weatherData()?.location);
   currentTime = computed(() => {

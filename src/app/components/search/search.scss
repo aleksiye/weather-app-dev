@@ -74,6 +74,29 @@
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 
+    /* Custom scrollbar styling */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #2c2e31;
+      border-radius: 0 8px 8px 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #3c3f41;
+      border-radius: 4px;
+      
+      &:hover {
+        background: #646669;
+      }
+    }
+
+    /* Firefox scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: #3c3f41 #2c2e31;
+
     .suggestion-item {
       width: 100%;
       padding: 0.75rem 1rem;

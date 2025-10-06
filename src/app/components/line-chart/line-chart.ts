@@ -18,6 +18,7 @@ export class LineChart {
   forecastDays = input<ForecastDayComplete[]>([]);
   selectedDayIndex = input<number>(0);
   chartType = input<ChartType>(ChartType.TEMPERATURE);
+  locationTime = input<Date>(new Date());
 
   // Get current chart configuration based on selected type
   currentChartConfig = computed<ChartTypeConfig>(() => {
@@ -39,7 +40,7 @@ export class LineChart {
     
     if (dayIndex === 0) {
       // TODAY: Show next 24 hours from current time
-      const now = new Date();
+      const now = this.locationTime();
       const currentHour = now.getHours();
       
       const todayHours = days[0].hour;

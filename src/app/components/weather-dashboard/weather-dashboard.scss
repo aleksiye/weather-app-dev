@@ -54,6 +54,21 @@
         font-weight: 600;
         color: #646669;
         line-height: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+
+        .timezone-label {
+          font-size: 0.5rem;
+          font-weight: 400;
+          color: #646669;
+          opacity: 0.7;
+          letter-spacing: 0.3px;
+          text-transform: none;
+          white-space: nowrap;
+          line-height: 1;
+        }
       }
       
       .current-temp {
@@ -62,6 +77,20 @@
         font-weight: 600;
         color: #e2b714;
         line-height: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        .temp-label {
+          font-size: 0.5rem;
+          font-weight: 400;
+          color: #646669;
+          opacity: 0.7;
+          letter-spacing: 0.3px;
+          text-transform: none;
+          white-space: nowrap;
+          line-height: 1;
+        }
       }
     }
     
@@ -207,10 +236,16 @@
         
         .current-time {
           font-size: 2.5rem;
+          .timezone-label {
+            font-size: 0.45rem;
+          }
         }
         
         .current-temp {
           font-size: 2.5rem;
+          .temp-label {
+            font-size: 0.45rem;
+          }
         }
       }
       
@@ -270,10 +305,17 @@
         
         .current-time {
           font-size: 2rem;
+
+          .timezone-label {
+            font-size: 0.4rem;
+          }
         }
         
         .current-temp {
           font-size: 2rem;
+          .temp-label {
+            font-size: 0.4rem;
+          }
         }
       }
       
