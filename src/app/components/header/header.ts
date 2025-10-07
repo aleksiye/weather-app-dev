@@ -27,9 +27,7 @@ export class Header {
 
   onAccount(): void {
     if (this.isAuthenticated()) {
-      // Navigate to profile or show dropdown menu
-      // For now, just navigate to home
-      this.router.navigate(['/']);
+      this.router.navigate(['/profile']);
     } else {
       this.router.navigate(['/auth']);
     }

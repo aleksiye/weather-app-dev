@@ -1,0 +1,167 @@
+<app-header></app-header>
+<div class="profile-page">
+  <div class="profile-container">
+    <h1 class="page-title">account settings</h1>
+
+    <!-- Success/Error Messages -->
+    @if (successMessage()) {
+      <div class="message success-message">{{ successMessage() }}</div>
+    }
+    @if (errorMessage()) {
+      <div class="message error-message">{{ errorMessage() }}</div>
+    }
+
+    <!-- Profile Information -->
+    <div class="section">
+      <div class="section-header">
+        <h2 class="section-title">profile information</h2>
+        @if (!isEditingProfile()) {
+          <button class="edit-button" (click)="toggleEditProfile()">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            edit
+          </button>
+        }
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="profile-form">
+        <div class="form-group">
+          <label class="label">username</label>
+          @if (!isEditingProfile()) {
+            <div class="value">{{ currentUser()?.username }}</div>
+          } @else {
+            <input 
+              type="text" 
+              class="input" 
+              formControlName="username"
+              [class.invalid]="profileForm.get('username')?.invalid && profileForm.get('username')?.touched"
+            />
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="label">email</label>
+          @if (!isEditingProfile()) {
+            <div class="value">{{ currentUser()?.email }}</div>
+          } @else {
+            <input 
+              type="email" 
+              class="input" 
+              formControlName="email"
+              [class.invalid]="profileForm.get('email')?.invalid && profileForm.get('email')?.touched"
+            />
+          }
+        </div>
+
+        @if (isEditingProfile()) {
+          <div class="button-group">
+            <button type="submit" class="primary-button" [disabled]="profileForm.invalid || isSaving()">
+              {{ isSaving() ? 'saving...' : 'save changes' }}
+            </button>
+            <button type="button" class="secondary-button" (click)="toggleEditProfile()" [disabled]="isSaving()">
+              cancel
+            </button>
+          </div>
+        }
+      </form>
+    </div>
+
+    <!-- Change Password -->
+    <div class="section">
+      <div class="section-header">
+        <h2 class="section-title">change password</h2>
+        @if (!isEditingPassword()) {
+          <button class="edit-button" (click)="toggleEditPassword()">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+            </svg>
+            change
+          </button>
+        }
+      </div>
+
+      @if (isEditingPassword()) {
+        <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="password-form">
+          <div class="form-group">
+            <label class="label">current password</label>
+            <input 
+              type="password" 
+              class="input" 
+              formControlName="currentPassword"
+              placeholder="enter current password"
+              [class.invalid]="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="label">new password</label>
+            <input 
+              type="password" 
+              class="input" 
+              formControlName="newPassword"
+              placeholder="enter new password"
+              [class.invalid]="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="label">confirm password</label>
+            <input 
+              type="password" 
+              class="input" 
+              formControlName="confirmPassword"
+              placeholder="confirm new password"
+              [class.invalid]="passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched"
+            />
+          </div>
+
+          <div class="button-group">
+            <button type="submit" class="primary-button" [disabled]="passwordForm.invalid || isSaving()">
+              {{ isSaving() ? 'changing...' : 'change password' }}
+            </button>
+            <button type="button" class="secondary-button" (click)="toggleEditPassword()" [disabled]="isSaving()">
+              cancel
+            </button>
+          </div>
+        </form>
+      } @else {
+        <p class="section-description">••••••••••••</p>
+      }
+    </div>
+
+    <div class="section danger-section">
+      <h2 class="section-title danger-title">danger zone</h2>
+      <p class="section-description">Are you sure?</p>
+      <button class="danger-button" (click)="openDeleteDialog()">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+        delete account
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Dialog -->
+@if (showDeleteDialog()) {
+  <div class="dialog-overlay" (click)="closeDeleteDialog()">
+    <div class="dialog" (click)="$event.stopPropagation()">
+      <h3 class="dialog-title">delete account?</h3>
+      <p class="dialog-message">
+        This action cannot be undone. This will permanently delete your account, 
+        all your favorite locations, and remove all associated data.
+      </p>
+      <div class="dialog-buttons">
+        <button class="dialog-button danger-confirm" (click)="confirmDeleteAccount()" [disabled]="isSaving()">
+          {{ isSaving() ? 'deleting...' : 'yes, delete my account' }}
+        </button>
+        <button class="dialog-button cancel" (click)="closeDeleteDialog()" [disabled]="isSaving()">
+          cancel
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<app-footer></app-footer>

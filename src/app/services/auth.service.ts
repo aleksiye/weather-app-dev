@@ -19,6 +19,11 @@ export interface RegisterData {
   password: string;
 }
 
+export interface UpdateProfileData {
+  username?: string;
+  email?: string;
+}
+
 interface BackendAuthResponse {
   message: string;
   token: string;
@@ -26,6 +31,11 @@ interface BackendAuthResponse {
 }
 
 interface MeResponse {
+  user: User;
+}
+
+interface UpdateProfileResponse {
+  message: string;
   user: User;
 }
 
@@ -80,6 +90,23 @@ export class AuthService {
     this.tokenSignal.set(null);
     localStorage.removeItem(this.TOKEN_KEY);
     this.router.navigate(['/']);
+  }
+
+  async updateProfile(data: UpdateProfileData): Promise<User> {
+    try {
+      const response = await this.http
+        .put<UpdateProfileResponse>(`${this.API_URL}/me`, data)
+        .toPromise();
+      
+      if (response?.user) {
+        // Update the current user signal with the new data
+        this.currentUserSignal.set(response.user);
+        return response.user;
+      }
+      throw new Error('Failed to update profile');
+    } catch (error) {
+      throw error;
+    }
   }
 
   getToken(): string | null {
