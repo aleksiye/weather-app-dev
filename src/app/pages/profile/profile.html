@@ -152,14 +152,34 @@
         This action cannot be undone. This will permanently delete your account, 
         all your favorite locations, and remove all associated data.
       </p>
-      <div class="dialog-buttons">
-        <button class="dialog-button danger-confirm" (click)="confirmDeleteAccount()" [disabled]="isSaving()">
-          {{ isSaving() ? 'deleting...' : 'yes, delete my account' }}
-        </button>
-        <button class="dialog-button cancel" (click)="closeDeleteDialog()" [disabled]="isSaving()">
-          cancel
-        </button>
-      </div>
+      <form [formGroup]="deleteForm" (ngSubmit)="confirmDeleteAccount()">
+        <div class="form-group">
+          <label class="label">confirm password</label>
+          <input 
+            type="password" 
+            class="input" 
+            formControlName="password"
+            placeholder="enter your password to confirm"
+            [class.invalid]="deleteForm.get('password')?.invalid && deleteForm.get('password')?.touched"
+            autofocus
+          />
+        </div>
+        <div class="dialog-buttons">
+          <button 
+            type="submit" 
+            class="dialog-button danger-confirm" 
+            [disabled]="deleteForm.invalid || isSaving()">
+            {{ isSaving() ? 'deleting...' : 'yes, delete my account' }}
+          </button>
+          <button 
+            type="button" 
+            class="dialog-button cancel" 
+            (click)="closeDeleteDialog()" 
+            [disabled]="isSaving()">
+            cancel
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 }

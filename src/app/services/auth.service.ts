@@ -24,6 +24,15 @@ export interface UpdateProfileData {
   email?: string;
 }
 
+export interface ChangePasswordData {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export interface DeleteAccountData {
+  password: string;
+}
+
 interface BackendAuthResponse {
   message: string;
   token: string;
@@ -37,6 +46,14 @@ interface MeResponse {
 interface UpdateProfileResponse {
   message: string;
   user: User;
+}
+
+interface ChangePasswordResponse {
+  message: string;
+}
+
+interface DeleteAccountResponse {
+  message: string;
 }
 
 @Injectable({
@@ -104,6 +121,39 @@ export class AuthService {
         return response.user;
       }
       throw new Error('Failed to update profile');
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async changePassword(data: ChangePasswordData): Promise<void> {
+    try {
+      const response = await this.http
+        .put<ChangePasswordResponse>(`${this.API_URL}/me/password`, data)
+        .toPromise();
+      
+      if (!response) {
+        throw new Error('Failed to change password');
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteAccount(data: DeleteAccountData): Promise<void> {
+    try {
+      const response = await this.http
+        .request<DeleteAccountResponse>('DELETE', `${this.API_URL}/me`, { body: data })
+        .toPromise();
+      
+      if (!response) {
+        throw new Error('Failed to delete account');
+      }
+      
+      // Clear local auth state after successful deletion
+      this.currentUserSignal.set(null);
+      this.tokenSignal.set(null);
+      localStorage.removeItem(this.TOKEN_KEY);
     } catch (error) {
       throw error;
     }

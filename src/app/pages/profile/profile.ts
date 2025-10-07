@@ -20,6 +20,7 @@ export class Profile implements OnInit {
   currentUser = this.authService.currentUser;
   profileForm!: FormGroup;
   passwordForm!: FormGroup;
+  deleteForm!: FormGroup;
 
   isEditingProfile = signal<boolean>(false);
   isEditingPassword = signal<boolean>(false);
@@ -46,6 +47,10 @@ export class Profile implements OnInit {
       currentPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
+    });
+
+    this.deleteForm = this.fb.group({
+      password: ['', [Validators.required]]
     });
   }
 
@@ -91,7 +96,7 @@ export class Profile implements OnInit {
   async changePassword(): Promise<void> {
     if (this.passwordForm.invalid) return;
 
-    const { newPassword, confirmPassword } = this.passwordForm.value;
+    const { newPassword, confirmPassword, currentPassword } = this.passwordForm.value;
     if (newPassword !== confirmPassword) {
       this.errorMessage.set('Passwords do not match');
       return;
@@ -101,17 +106,16 @@ export class Profile implements OnInit {
     this.clearMessages();
 
     try {
-      // TODO: Implement change password API call
-      // await this.authService.changePassword(this.passwordForm.value);
-      
-      // Simulated for now
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await this.authService.changePassword({
+        currentPassword,
+        newPassword
+      });
       
       this.successMessage.set('Password changed successfully');
       this.isEditingPassword.set(false);
       this.passwordForm.reset();
     } catch (error: any) {
-      this.errorMessage.set(error?.error?.message || 'Failed to change password');
+      this.errorMessage.set(error?.error?.error || 'Failed to change password');
     } finally {
       this.isSaving.set(false);
     }
@@ -119,28 +123,28 @@ export class Profile implements OnInit {
 
   openDeleteDialog(): void {
     this.showDeleteDialog.set(true);
+    this.deleteForm.reset();
     this.clearMessages();
   }
 
   closeDeleteDialog(): void {
     this.showDeleteDialog.set(false);
+    this.deleteForm.reset();
   }
 
   async confirmDeleteAccount(): Promise<void> {
+    if (this.deleteForm.invalid) return;
+
     this.isSaving.set(true);
     this.clearMessages();
 
     try {
-      // TODO: Implement delete account API call
-      // await this.authService.deleteAccount();
+      await this.authService.deleteAccount(this.deleteForm.value);
       
-      // Simulated for now
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      this.authService.logout();
+      // Navigate to home page after successful deletion
       this.router.navigate(['/']);
     } catch (error: any) {
-      this.errorMessage.set(error?.error?.message || 'Failed to delete account');
+      this.errorMessage.set(error?.error?.error || 'Failed to delete account');
       this.closeDeleteDialog();
     } finally {
       this.isSaving.set(false);
