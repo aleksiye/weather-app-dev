@@ -3,12 +3,21 @@
   max-width: 1632px;
   width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0.5rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 3rem;
   box-sizing: border-box;
   overflow-x: hidden;
+}
+
+app-favorites {
+  display: block;
+  max-width: 1632px;
+  width: 100%;
+  margin: 0.5rem auto 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
 .detailed-weather-section {
@@ -46,8 +55,12 @@
 // Responsive Design
 @media (max-width: 1024px) {
   .home-container {
-    padding: 1.5rem;
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
     gap: 2.5rem;
+  }
+
+  app-favorites {
+    padding: 0 1.5rem;
   }
   
   .weather-cards-grid {
@@ -58,8 +71,12 @@
 
 @media (max-width: 768px) {
   .home-container {
-    padding: 1rem;
+    padding: 0.5rem 1rem 1rem 1rem;
     gap: 2rem;
+  }
+
+  app-favorites {
+    padding: 0 1rem;
   }
   
   .weather-cards-grid {
@@ -75,8 +92,12 @@
 
 @media (max-width: 480px) {
   .home-container {
-    padding: 0.75rem;
+    padding: 0.5rem 0.75rem 0.75rem 0.75rem;
     gap: 1.5rem;
+  }
+
+  app-favorites {
+    padding: 0 0.75rem;
   }
   
   .weather-cards-grid {

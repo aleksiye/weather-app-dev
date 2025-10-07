@@ -1,10 +1,55 @@
 <div class="register-form">
   <h2 class="form-title">register</h2>
-  <form>
-    <input type="text" placeholder="username" class="auth-input" />
-    <input type="email" placeholder="email" class="auth-input" />
-    <input type="password" placeholder="password" class="auth-input" />
-    <input type="password" placeholder="confirm password" class="auth-input" />
-    <button type="submit" class="auth-button">sign up</button>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    @if (errorMessage()) {
+      <div class="error-message">{{ errorMessage() }}</div>
+    }
+    <input 
+      type="text" 
+      placeholder="username" 
+      class="auth-input" 
+      formControlName="username"
+      [class.invalid]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+    />
+    @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+      <div class="field-error">Username must be at least 3 characters</div>
+    }
+    <input 
+      type="email" 
+      placeholder="email" 
+      class="auth-input" 
+      formControlName="email"
+      [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+    />
+    @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+      <div class="field-error">Please enter a valid email</div>
+    }
+    <input 
+      type="password" 
+      placeholder="password" 
+      class="auth-input" 
+      formControlName="password"
+      [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+    />
+    @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+      <div class="field-error">Password must be at least 6 characters</div>
+    }
+    <input 
+      type="password" 
+      placeholder="confirm password" 
+      class="auth-input" 
+      formControlName="confirmPassword"
+      [class.invalid]="(registerForm.get('confirmPassword')?.invalid || !passwordsMatch) && registerForm.get('confirmPassword')?.touched"
+    />
+    @if (!passwordsMatch && registerForm.get('confirmPassword')?.touched) {
+      <div class="field-error">Passwords do not match</div>
+    }
+    <button 
+      type="submit" 
+      class="auth-button"
+      [disabled]="registerForm.invalid || isLoading()"
+    >
+      {{ isLoading() ? 'signing up...' : 'sign up' }}
+    </button>
   </form>
 </div>

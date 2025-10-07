@@ -9,7 +9,7 @@ export interface User {
 }
 
 export interface LoginCredentials {
-  username: string;  // Changed from email to username
+  username: string;
   password: string;
 }
 
@@ -19,36 +19,41 @@ export interface RegisterData {
   password: string;
 }
 
-// Backend response structure
 interface BackendAuthResponse {
   message: string;
   token: string;
   user: User;
 }
 
+interface MeResponse {
+  user: User;
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  
+
   private readonly API_URL = '/api';
   private readonly TOKEN_KEY = 'auth_token';
-  
+
   private currentUserSignal = signal<User | null>(null);
   private tokenSignal = signal<string | null>(null);
-  
+
   currentUser = this.currentUserSignal.asReadonly();
   isAuthenticated = computed(() => !!this.currentUserSignal());
-  
+
   constructor() {
-    this.loadStoredAuth();
+    // Don't call loadStoredAuth here - will be called by APP_INITIALIZER
   }
-  
+
   async register(data: RegisterData): Promise<void> {
     try {
-      const response = await this.http.post<BackendAuthResponse>(`${this.API_URL}/register`, data).toPromise();
+      const response = await this.http
+        .post<BackendAuthResponse>(`${this.API_URL}/register`, data)
+        .toPromise();
       if (response) {
         this.handleAuthSuccess(response);
       }
@@ -56,10 +61,12 @@ export class AuthService {
       throw error;
     }
   }
-  
+
   async login(credentials: LoginCredentials): Promise<void> {
     try {
-      const response = await this.http.post<BackendAuthResponse>(`${this.API_URL}/login`, credentials).toPromise();
+      const response = await this.http
+        .post<BackendAuthResponse>(`${this.API_URL}/login`, credentials)
+        .toPromise();
       if (response) {
         this.handleAuthSuccess(response);
       }
@@ -67,30 +74,38 @@ export class AuthService {
       throw error;
     }
   }
-  
+
   logout(): void {
     this.currentUserSignal.set(null);
     this.tokenSignal.set(null);
     localStorage.removeItem(this.TOKEN_KEY);
     this.router.navigate(['/']);
   }
-  
+
   getToken(): string | null {
     return this.tokenSignal();
   }
-  
+
   private handleAuthSuccess(response: BackendAuthResponse): void {
     this.currentUserSignal.set(response.user);
     this.tokenSignal.set(response.token);
     localStorage.setItem(this.TOKEN_KEY, response.token);
   }
-  
-  private loadStoredAuth(): void {
+
+  // Make this public so it can be called by APP_INITIALIZER
+  async loadStoredAuth(): Promise<void> {
     const token = localStorage.getItem(this.TOKEN_KEY);
     if (token) {
       this.tokenSignal.set(token);
-      // TODO: Add a /api/me endpoint to verify token and load user data
-      // Otherwise user data will be lost on page refresh
+      try {
+        const response = await this.http.get<MeResponse>(`${this.API_URL}/me`).toPromise();
+        if (response?.user) {
+          this.currentUserSignal.set(response.user);
+        }
+      } catch (error) {
+        console.error('Failed to load user data:', error);
+        this.logout();
+      }
     }
   }
 }

@@ -1,8 +1,10 @@
-import { Component, output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Search } from '../search/search';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -11,13 +13,28 @@ import { Router } from '@angular/router';
   styleUrl: './header.scss'
 })
 export class Header {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
   searchSubmitted = output<string>();
-  constructor(private router: Router) {}
+
+  currentUser = this.authService.currentUser;
+  isAuthenticated = this.authService.isAuthenticated;
+
   onSearchSubmitted(query: string): void {
     this.searchSubmitted.emit(query);
   }
 
   onAccount(): void {
-    this.router.navigate(['/auth']);
+    if (this.isAuthenticated()) {
+      // Navigate to profile or show dropdown menu
+      // For now, just navigate to home
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['/auth']);
+    }
+  }
+  onLogout(): void {
+    this.authService.logout();
   }
 }

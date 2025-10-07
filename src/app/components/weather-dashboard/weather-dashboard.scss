@@ -8,7 +8,7 @@
   margin: 0 auto;
   box-sizing: border-box;
   transition: all 0.2s ease;
-  
+
   &:hover {
     border-color: #646669;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -20,7 +20,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 2rem;
-  
+
   .location-info {
     .location-name {
       font-family: 'Roboto Mono', monospace;
@@ -29,7 +29,61 @@
       color: #e2b714;
       margin: 0 0 0.25rem 0;
     }
-    
+
+    .location-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .favorite-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      .star-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+      }
+
+      &.favorited {
+        background: rgba(251, 191, 36, 0.2);
+        border-color: rgba(251, 191, 36, 0.4);
+
+        .star-icon {
+          color: #fbbf24;
+          fill: currentColor;
+          stroke: none;
+        }
+
+        &:hover {
+          background: rgba(251, 191, 36, 0.3);
+          border-color: rgba(251, 191, 36, 0.5);
+        }
+      }
+    }
+
     .location-region {
       font-family: 'Roboto Mono', monospace;
       font-size: 0.9rem;
@@ -37,17 +91,17 @@
       margin: 0;
     }
   }
-  
+
   .current-weather {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    
+
     .temp-time-wrapper {
       display: flex;
       align-items: center;
       gap: 1rem;
-      
+
       .current-time {
         font-family: 'Roboto Mono', monospace;
         font-size: 3rem;
@@ -70,7 +124,7 @@
           line-height: 1;
         }
       }
-      
+
       .current-temp {
         font-family: 'Roboto Mono', monospace;
         font-size: 3rem;
@@ -93,19 +147,19 @@
         }
       }
     }
-    
+
     .weather-condition {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.5rem;
-      
+
       .condition-icon {
         width: 64px;
         height: 64px;
         object-fit: contain;
       }
-      
+
       .condition-text {
         font-family: 'Roboto Mono', monospace;
         font-size: 0.85rem;
@@ -140,7 +194,7 @@
   height: 300px;
   min-width: 0;
   flex: 1;
-  
+
   app-line-chart {
     display: block;
     width: 100%;
@@ -154,7 +208,7 @@
   flex-direction: column;
   gap: 1.5rem;
   min-width: 200px;
-  
+
   .stat-item {
     display: flex;
     justify-content: space-between;
@@ -164,18 +218,18 @@
     border: 1px solid #3c3f41;
     border-radius: 8px;
     transition: border-color 0.2s ease;
-    
+
     &:hover {
       border-color: #646669;
     }
-    
+
     .stat-label {
       font-family: 'Roboto Mono', monospace;
       font-size: 0.85rem;
       color: #646669;
       font-weight: 400;
     }
-    
+
     .stat-value {
       font-family: 'Roboto Mono', monospace;
       font-size: 1rem;
@@ -190,18 +244,18 @@
   .chart-and-stats-container {
     gap: 1.5rem;
   }
-  
+
   .weather-stats {
     min-width: 180px;
     gap: 1.25rem;
-    
+
     .stat-item {
       padding: 0.875rem;
-      
+
       .stat-label {
         font-size: 0.8rem;
       }
-      
+
       .stat-value {
         font-size: 0.95rem;
       }
@@ -213,34 +267,34 @@
   .weather-card-detailed {
     padding: 1.5rem;
   }
-  
+
   .weather-header {
     flex-direction: column;
     gap: 1.5rem;
-    
+
     .location-info {
       .location-name {
         font-size: 1.5rem;
       }
-      
+
       .location-region {
         font-size: 0.85rem;
       }
     }
-    
+
     .current-weather {
       align-self: center;
-      
-      .temp-time-wrapper{
+
+      .temp-time-wrapper {
         gap: 0.75rem;
-        
+
         .current-time {
           font-size: 2.5rem;
           .timezone-label {
             font-size: 0.45rem;
           }
         }
-        
+
         .current-temp {
           font-size: 2.5rem;
           .temp-label {
@@ -248,7 +302,7 @@
           }
         }
       }
-      
+
       .weather-condition {
         .condition-icon {
           width: 56px;
@@ -257,12 +311,12 @@
       }
     }
   }
-  
+
   .chart-and-stats-container {
     flex-direction: column;
     gap: 2rem;
   }
-  
+
   .chart-container {
     height: 250px;
   }
@@ -270,18 +324,18 @@
   .chart-row {
     flex-direction: column-reverse;
   }
-  
+
   .weather-stats {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     min-width: unset;
-    
+
     .stat-item {
       flex-direction: column;
       gap: 0.5rem;
       text-align: center;
-      
+
       .stat-label {
         font-size: 0.75rem;
         text-transform: uppercase;
@@ -295,14 +349,14 @@
   .weather-card-detailed {
     padding: 1rem;
   }
-  
+
   .weather-header {
     .current-weather {
       gap: 1rem;
-      
+
       .temp-time-wrapper {
         gap: 0.5rem;
-        
+
         .current-time {
           font-size: 2rem;
 
@@ -310,7 +364,7 @@
             font-size: 0.4rem;
           }
         }
-        
+
         .current-temp {
           font-size: 2rem;
           .temp-label {
@@ -318,28 +372,28 @@
           }
         }
       }
-      
+
       .weather-condition {
         .condition-icon {
           width: 48px;
           height: 48px;
         }
-        
+
         .condition-text {
           font-size: 0.8rem;
         }
       }
     }
   }
-  
+
   .chart-container {
     height: 200px;
   }
-  
+
   .weather-stats {
     grid-template-columns: 1fr;
     gap: 0.75rem;
-    
+
     .stat-item {
       padding: 0.75rem;
     }

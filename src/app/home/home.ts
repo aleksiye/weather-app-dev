@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { WeatherDashboard } from '../components/weather-dashboard/weather-dashboard';
 import { Header } from '../components/header/header';
 import { Footer } from '../components/footer/footer';
+import { Favorites } from '../components/favorites/favorites';
 import { Forecast } from '../services/forecast';
 import { WeatherResponse } from '../interfaces/WeatherResponse.interface';
 
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, WeatherDashboard, Header, Footer],
+  imports: [CommonModule, WeatherDashboard, Header, Footer, Favorites],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })

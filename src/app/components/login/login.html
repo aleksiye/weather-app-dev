@@ -1,8 +1,29 @@
 <div class="login-form">
   <h2 class="form-title">login</h2>
-  <form>
-    <input type="email" placeholder="email" class="auth-input" />
-    <input type="password" placeholder="password" class="auth-input" />
-    <button type="submit" class="auth-button">sign in</button>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    @if (errorMessage()) {
+      <div class="error-message">{{ errorMessage() }}</div>
+    }
+    <input 
+      type="text" 
+      placeholder="username" 
+      class="auth-input" 
+      formControlName="username"
+      [class.invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+    />
+    <input 
+      type="password" 
+      placeholder="password" 
+      class="auth-input" 
+      formControlName="password"
+      [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+    />
+    <button 
+      type="submit" 
+      class="auth-button"
+      [disabled]="loginForm.invalid || isLoading()"
+    >
+      {{ isLoading() ? 'signing in...' : 'sign in' }}
+    </button>
   </form>
 </div>

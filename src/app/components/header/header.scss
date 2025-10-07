@@ -1,5 +1,4 @@
-Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\header.scss
-.header {
+Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\header.scss .header {
   background-color: #2c2e31;
   border-bottom: 1px solid #3c3f41;
   padding: 0;
@@ -25,7 +24,7 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
 // Logo Section
 .logo-section {
   flex: 0 0 auto;
-  
+
   .logo-link {
     text-decoration: none;
     display: flex;
@@ -33,13 +32,13 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
     gap: 0.75rem;
     transition: none;
   }
-  
+
   .logo-content {
     display: flex;
     flex-direction: column;
     line-height: 1;
   }
-  
+
   .logo-top-text {
     font-size: 0.65rem;
     color: #646669;
@@ -48,7 +47,7 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
-  
+
   .logo-text {
     font-family: 'Roboto Mono', monospace;
     font-size: 1.8rem;
@@ -57,7 +56,7 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
     color: #d1d0c5;
     letter-spacing: -0.5px;
   }
-  
+
   .logo-icon {
     width: 40px;
     height: 40px;
@@ -77,7 +76,35 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
 // Login Section
 .login-section {
   flex: 0 0 auto;
-  
+  .user-menu {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .logout-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 0.5rem;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+    }
+
+    .logout-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
   .login-button {
     display: flex;
     align-items: center;
@@ -91,18 +118,18 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    
+
     .user-icon {
       width: 18px;
       height: 18px;
     }
-    
+
     &:hover {
       background-color: #e2b714;
       border-color: #e2b714;
       color: #2c2e31;
     }
-    
+
     &:focus {
       outline: none;
       box-shadow: 0 0 0 3px rgba(226, 183, 20, 0.3);
@@ -115,28 +142,28 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
   .header-container {
     padding: 0 1rem;
   }
-  
+
   .search-section {
     margin: 0 1rem;
   }
-  
+
   .login-button {
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
-    
+
     span:not(.user-icon) {
       display: none;
     }
   }
-  
+
   .logo-top-text {
     font-size: 0.55rem;
   }
-  
+
   .logo-text {
     font-size: 1.3rem;
   }
-  
+
   .logo-icon {
     width: 20px;
     height: 20px;
@@ -147,7 +174,7 @@ Users\Puffster\Documents\programming\weather-app-dev\src\app\components\header\h
   .logo-text {
     font-size: 1.2rem;
   }
-  
+
   .logo-icon {
     width: 18px;
     height: 18px;
