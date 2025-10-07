@@ -6,7 +6,7 @@ import { Auth } from './pages/auth/auth';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Home, Auth],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
