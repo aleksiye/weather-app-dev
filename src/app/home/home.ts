@@ -63,7 +63,12 @@ export class Home implements OnInit{
       }
   });
   }
+  
   onSearchSubmitted(query: string): void {
     this.loadWeatherData(query);
+  }
+
+  onFavoriteSelected(location: string): void {
+    this.loadWeatherData(location);
   }
 }

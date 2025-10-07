@@ -1,6 +1,5 @@
-import { Component, inject, OnInit, signal, effect } from '@angular/core';
+import { Component, inject, OnInit, signal, effect, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { FavoriteService, FavoriteLocation } from '../../services/favorite.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -13,10 +12,12 @@ import { AuthService } from '../../services/auth.service';
 export class Favorites implements OnInit {
   private favoriteService = inject(FavoriteService);
   private authService = inject(AuthService);
-  private router = inject(Router);
 
   favorites = this.favoriteService.favorites;
   isAuthenticated = this.authService.isAuthenticated;
+
+  // Output event when a favorite is clicked
+  favoriteSelected = output<string>();
 
   constructor() {
     // Watch for authentication changes and load favorites when user logs in
@@ -45,15 +46,9 @@ export class Favorites implements OnInit {
   }
 
   onFavoriteClick(favorite: FavoriteLocation): void {
-    // Navigate to the weather for this location
-    // You can customize this based on your routing structure
-    this.router.navigate(['/'], {
-      queryParams: {
-        lat: favorite.latitude,
-        lon: favorite.longitude,
-        name: favorite.name
-      }
-    });
+    // Emit the location as "lat,lon" format for the forecast service
+    const locationString = `${favorite.latitude},${favorite.longitude}`;
+    this.favoriteSelected.emit(locationString);
   }
 
   shouldShow(): boolean {
