@@ -49,7 +49,8 @@ export class Search {
     }
   }
   selectSuggestion(result: SearchResult) {
-    this.searchSubmitted.emit(result.name);
+    const locationQuery = `${result.lat},${result.lon}`;
+    this.searchSubmitted.emit(locationQuery);
     this.searchQuery.set(result.name);
     this.closeSuggestions();
   }
