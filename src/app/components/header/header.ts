@@ -2,6 +2,7 @@ import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Search } from '../search/search';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -11,12 +12,12 @@ import { Search } from '../search/search';
 })
 export class Header {
   searchSubmitted = output<string>();
+  constructor(private router: Router) {}
   onSearchSubmitted(query: string): void {
     this.searchSubmitted.emit(query);
   }
 
-  onLogin(): void {
-    // TODO: Implement login functionality
-    console.log('Login clicked');
+  onAccount(): void {
+    this.router.navigate(['/auth']);
   }
 }
