@@ -1,6 +1,7 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 
 export interface User {
   id: string;
@@ -70,17 +71,17 @@ export class AuthService {
   private tokenSignal = signal<string | null>(null);
 
   currentUser = this.currentUserSignal.asReadonly();
-  isAuthenticated = computed(() => !!this.currentUserSignal());
+  isAuthenticated = computed(() => !!this.currentUserSignal()); // Boolean coercion, double not
 
   constructor() {
-    // Don't call loadStoredAuth here - will be called by APP_INITIALIZER
+    //!! loadStoredAuth() called by APP_INITIALIZER
   }
 
   async register(data: RegisterData): Promise<void> {
     try {
-      const response = await this.http
-        .post<BackendAuthResponse>(`${this.API_URL}/register`, data)
-        .toPromise();
+      const response = await lastValueFrom(
+        this.http.post<BackendAuthResponse>(`${this.API_URL}/register`, data)
+      );
       if (response) {
         this.handleAuthSuccess(response);
       }
@@ -91,9 +92,10 @@ export class AuthService {
 
   async login(credentials: LoginCredentials): Promise<void> {
     try {
-      const response = await this.http
+      const response = await lastValueFrom(
+        this.http
         .post<BackendAuthResponse>(`${this.API_URL}/login`, credentials)
-        .toPromise();
+      );
       if (response) {
         this.handleAuthSuccess(response);
       }
@@ -111,12 +113,12 @@ export class AuthService {
 
   async updateProfile(data: UpdateProfileData): Promise<User> {
     try {
-      const response = await this.http
+      const response = await lastValueFrom(
+        this.http
         .put<UpdateProfileResponse>(`${this.API_URL}/me`, data)
-        .toPromise();
+      );
       
       if (response?.user) {
-        // Update the current user signal with the new data
         this.currentUserSignal.set(response.user);
         return response.user;
       }
@@ -128,9 +130,10 @@ export class AuthService {
 
   async changePassword(data: ChangePasswordData): Promise<void> {
     try {
-      const response = await this.http
+      const response = await lastValueFrom(
+        this.http
         .put<ChangePasswordResponse>(`${this.API_URL}/me/password`, data)
-        .toPromise();
+      );
       
       if (!response) {
         throw new Error('Failed to change password');
@@ -142,15 +145,15 @@ export class AuthService {
 
   async deleteAccount(data: DeleteAccountData): Promise<void> {
     try {
-      const response = await this.http
+      const response = await lastValueFrom(
+        this.http
         .request<DeleteAccountResponse>('DELETE', `${this.API_URL}/me`, { body: data })
-        .toPromise();
+      );
       
       if (!response) {
         throw new Error('Failed to delete account');
       }
       
-      // Clear local auth state after successful deletion
       this.currentUserSignal.set(null);
       this.tokenSignal.set(null);
       localStorage.removeItem(this.TOKEN_KEY);
@@ -169,13 +172,15 @@ export class AuthService {
     localStorage.setItem(this.TOKEN_KEY, response.token);
   }
 
-  // Make this public so it can be called by APP_INITIALIZER
+  //!! loadStoredAuth() called by APP_INITIALIZER
   async loadStoredAuth(): Promise<void> {
     const token = localStorage.getItem(this.TOKEN_KEY);
     if (token) {
       this.tokenSignal.set(token);
       try {
-        const response = await this.http.get<MeResponse>(`${this.API_URL}/me`).toPromise();
+        const response = await lastValueFrom(
+          this.http.get<MeResponse>(`${this.API_URL}/me`)
+        );
         if (response?.user) {
           this.currentUserSignal.set(response.user);
         }
